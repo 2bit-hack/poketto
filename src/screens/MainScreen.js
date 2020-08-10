@@ -1,14 +1,14 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
+import {Button} from 'react-native-paper';
 
 const MainScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text>poketto</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Detail')}
-      />
+      <Button onPress={() => navigation.navigate('Detail')}>
+        Go to details
+      </Button>
     </View>
   );
 };
