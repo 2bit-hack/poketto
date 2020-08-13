@@ -8,8 +8,6 @@ const MainScreen = ({navigation}) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  console.log(constants.basicURL);
-
   const renderPokeListItem = ({item}) => {
     return <PokeListItem url={item.url} />;
   };
@@ -32,7 +30,9 @@ const MainScreen = ({navigation}) => {
         <FlatList
           data={data}
           renderItem={renderPokeListItem}
-          keyExtractor={(pokemon) => pokemon.name}
+          keyExtractor={(pokemon) => {
+            return pokemon.url;
+          }}
         />
       )}
     </View>
