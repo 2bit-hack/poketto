@@ -6,6 +6,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 
+import constants from './src/constants';
 import MainScreen from './src/screens/MainScreen';
 import DetailScreen from './src/screens/DetailScreen';
 
@@ -23,7 +24,7 @@ const App = () => {
           <Stack.Screen
             name="Main"
             component={MainScreen}
-            options={{title: 'poketto', headerTitleAlign: 'center'}}
+            options={{title: constants.appName, headerTitleAlign: 'center'}}
           />
           <Stack.Screen
             name="Detail"
