@@ -29,7 +29,7 @@ const App = () => {
           <Stack.Screen
             name="Detail"
             component={DetailScreen}
-            options={{title: 'poketto', headerTitleAlign: 'center'}}
+            options={{title: constants.appName, headerTitleAlign: 'center'}}
           />
         </Stack.Navigator>
       </PaperProvider>

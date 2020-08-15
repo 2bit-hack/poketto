@@ -9,7 +9,7 @@ const MainScreen = ({navigation}) => {
   const [data, setData] = useState([]);
 
   const renderPokeListItem = ({item}) => {
-    return <PokeListItem url={item.url} />;
+    return <PokeListItem url={item.url} navigation={navigation} />;
   };
 
   useEffect(() => {
@@ -29,9 +29,10 @@ const MainScreen = ({navigation}) => {
       ) : (
         <FlatList
           data={data}
+          removeClippedSubviews={true}
           renderItem={renderPokeListItem}
           keyExtractor={(pokemon) => {
-            return pokemon.url;
+            return pokemon.name;
           }}
         />
       )}

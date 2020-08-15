@@ -19,7 +19,7 @@ const concatenate = (name) =>
     .map((n) => capitalize(n))
     .join(' ');
 
-const PokeListItem = ({url}) => {
+const PokeListItem = ({url, navigation}) => {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
@@ -49,7 +49,13 @@ const PokeListItem = ({url}) => {
       {isLoading ? (
         <ActivityIndicator />
       ) : (
-        <Card style={styles.card}>
+        <Card
+          style={styles.card}
+          onPress={() =>
+            navigation.navigate('Detail', {
+              data,
+            })
+          }>
           <Card.Content>
             <View style={styles.header}>
               <View>
