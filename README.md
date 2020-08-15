@@ -1,3 +1,3 @@
 # poketto
 
-A WIP PokeDex made using React Native and pokeapi
+A Work In Progress PokeDex made using React Native and pokeapi
