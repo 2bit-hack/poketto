@@ -5,11 +5,6 @@ import {Card, Chip, Text, Headline} from 'react-native-paper';
 
 import typeColors from '../typeColors';
 
-const padLeft = (id) =>
-  [...Array(3 - id.toString().length).fill(0), ...id.toString().split('')].join(
-    '',
-  );
-
 const capitalize = (name) =>
   [...name.split('')[0].toUpperCase(), ...name.split('').slice(1)].join('');
 
@@ -60,7 +55,9 @@ const PokeListItem = ({url, navigation}) => {
             <View style={styles.header}>
               <View>
                 <View style={styles.titleCard}>
-                  <Headline style={styles.id}>#{padLeft(data.id)}</Headline>
+                  <Headline style={styles.id}>
+                    #{data.id.toString().padStart(3, '0')}
+                  </Headline>
                   <Headline style={styles.title}>
                     {concatenate(data.name)}
                   </Headline>

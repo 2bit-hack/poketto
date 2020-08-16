@@ -6,10 +6,6 @@ import {Card, Title, Headline, Chip} from 'react-native-paper';
 import typeColors from '../typeColors';
 
 // TODO: extract these out to utility functions later
-const padLeft = (id) =>
-  [...Array(3 - id.toString().length).fill(0), ...id.toString().split('')].join(
-    '',
-  );
 
 const capitalize = (name) =>
   [...name.split('')[0].toUpperCase(), ...name.split('').slice(1)].join('');
@@ -32,7 +28,9 @@ const DetailScreen = ({route}) => {
               style={styles.img}
               source={{uri: data.sprites.front_default}}
             />
-            <Headline style={styles.id}>#{padLeft(data.id)}</Headline>
+            <Headline style={styles.id}>
+              #{data.id.toString().padStart(3, '0')}
+            </Headline>
             <Title style={styles.title}>{concatenate(data.name)}</Title>
           </View>
           <View style={styles.types}>
@@ -93,7 +91,6 @@ const styles = StyleSheet.create({
   },
   title: {
     padding: 5,
-    paddingLeft: 20,
     elevation: 2,
     fontSize: 16,
   },

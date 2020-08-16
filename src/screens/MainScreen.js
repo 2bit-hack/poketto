@@ -3,10 +3,21 @@ import {ActivityIndicator, View, FlatList, StyleSheet} from 'react-native';
 
 import constants from '../constants';
 import PokeListItem from '../components/PokeListItem';
+import {TextInput, Avatar} from 'react-native-paper';
+
+const capitalize = (name) =>
+  [...name.split('')[0].toUpperCase(), ...name.split('').slice(1)].join('');
+
+const concatenate = (name) =>
+  name
+    .split('-')
+    .map((n) => capitalize(n))
+    .join(' ');
 
 const MainScreen = ({navigation}) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [query, setQuery] = useState('');
 
   const renderPokeListItem = ({item}) => {
     return <PokeListItem url={item.url} navigation={navigation} />;
@@ -27,14 +38,25 @@ const MainScreen = ({navigation}) => {
       {isLoading ? (
         <ActivityIndicator size="large" />
       ) : (
-        <FlatList
-          data={data}
-          removeClippedSubviews={true}
-          renderItem={renderPokeListItem}
-          keyExtractor={(pokemon) => {
-            return pokemon.name;
-          }}
-        />
+        <>
+          <TextInput
+            label="Search..."
+            mode="flat"
+            value={query}
+            disabled={isLoading}
+            onChangeText={(text) => setQuery(text)}
+          />
+          <FlatList
+            data={data.filter((pokemon) =>
+              concatenate(pokemon.name).includes(query),
+            )}
+            removeClippedSubviews={true}
+            renderItem={renderPokeListItem}
+            keyExtractor={(pokemon) => {
+              return pokemon.name;
+            }}
+          />
+        </>
       )}
     </View>
   );
