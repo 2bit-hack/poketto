@@ -45,7 +45,12 @@ const PokeListItem = ({url, navigation}) => {
         <ActivityIndicator />
       ) : (
         <Card
-          style={styles.card}
+          style={{
+            ...styles.card,
+            ...{
+              backgroundColor: typeColors[data.types[0].type.name] + '22',
+            },
+          }}
           onPress={() =>
             navigation.navigate('Detail', {
               data,
@@ -81,7 +86,9 @@ const PokeListItem = ({url, navigation}) => {
               </View>
               <Image
                 style={styles.img}
-                source={{uri: data.sprites.front_default}}
+                source={{
+                  uri: data.sprites.other['official-artwork'].front_default,
+                }}
               />
             </View>
           </Card.Content>
@@ -93,8 +100,9 @@ const PokeListItem = ({url, navigation}) => {
 
 const styles = StyleSheet.create({
   card: {
-    paddingVertical: 5,
-    elevation: 2,
+    elevation: 0,
+    borderRadius: 0,
+    borderWidth: 0,
   },
   header: {
     flex: 1,
@@ -105,12 +113,12 @@ const styles = StyleSheet.create({
   title: {
     padding: 5,
     paddingLeft: 20,
-    elevation: 2,
+    elevation: 0,
     fontSize: 16,
   },
   id: {
     padding: 5,
-    elevation: 2,
+    elevation: 0,
     fontSize: 16,
     fontWeight: 'bold',
   },
