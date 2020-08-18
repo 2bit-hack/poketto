@@ -7,4 +7,12 @@ const concatenate = (name) =>
     .map((n) => capitalize(n))
     .join(' ');
 
-export {capitalize, concatenate};
+const getProgress = (stat) => {
+  // 15 is the minimum on my phone before it collapses into nothingness
+  if (stat < 15) {
+    stat = 15;
+  }
+  return Number.parseFloat((stat / 255).toFixed(1));
+};
+
+export {capitalize, concatenate, getProgress};
