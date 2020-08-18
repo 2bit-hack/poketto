@@ -4,17 +4,7 @@ import {ScrollView, View, Text, StyleSheet, Image} from 'react-native';
 import {Card, Title, Headline, Chip} from 'react-native-paper';
 
 import typeColors from '../typeColors';
-
-// TODO: extract these out to utility functions later
-
-const capitalize = (name) =>
-  [...name.split('')[0].toUpperCase(), ...name.split('').slice(1)].join('');
-
-const concatenate = (name) =>
-  name
-    .split('-')
-    .map((n) => capitalize(n))
-    .join(' ');
+import {concatenate} from '../utilityFunctions';
 
 const DetailScreen = ({route}) => {
   const {data} = route.params;
@@ -23,7 +13,10 @@ const DetailScreen = ({route}) => {
     <ScrollView
       style={{
         ...styles.viewContainer,
-        backgroundColor: typeColors[data.types[0].type.name] + '22',
+        backgroundColor:
+          data.types.length > 0
+            ? typeColors[data.types[0].type.name] + '22'
+            : '#ffffff',
       }}>
       <View style={styles.container}>
         <Image

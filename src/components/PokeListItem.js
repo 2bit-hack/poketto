@@ -4,15 +4,7 @@ import {View, ActivityIndicator, Image, StyleSheet} from 'react-native';
 import {Card, Chip, Text, Headline} from 'react-native-paper';
 
 import typeColors from '../typeColors';
-
-const capitalize = (name) =>
-  [...name.split('')[0].toUpperCase(), ...name.split('').slice(1)].join('');
-
-const concatenate = (name) =>
-  name
-    .split('-')
-    .map((n) => capitalize(n))
-    .join(' ');
+import {concatenate} from '../utilityFunctions';
 
 const PokeListItem = ({url, navigation}) => {
   const [data, setData] = useState([]);
@@ -48,7 +40,10 @@ const PokeListItem = ({url, navigation}) => {
           style={{
             ...styles.card,
             ...{
-              backgroundColor: typeColors[data.types[0].type.name] + '22',
+              backgroundColor:
+                data.types.length > 0
+                  ? typeColors[data.types[0].type.name] + '22'
+                  : '#ffffff',
             },
           }}
           onPress={() =>
@@ -67,22 +62,27 @@ const PokeListItem = ({url, navigation}) => {
                     {concatenate(data.name)}
                   </Headline>
                 </View>
-                <View style={styles.types}>
-                  {data.types.map((typeObj) => (
-                    <View key={typeObj.slot} style={styles.type}>
-                      <Chip
-                        style={{
-                          borderColor: typeColors[typeObj.type.name],
-                          elevation: 1,
-                        }}
-                        mode="outlined">
-                        <Text style={{color: typeColors[typeObj.type.name]}}>
-                          {typeObj.type.name}
-                        </Text>
-                      </Chip>
-                    </View>
-                  ))}
-                </View>
+                {data.types.length > 0 && (
+                  <View style={styles.types}>
+                    {data.types.map((typeObj) => {
+                      return (
+                        <View key={typeObj.slot} style={styles.type}>
+                          <Chip
+                            style={{
+                              borderColor: typeColors[typeObj.type.name],
+                              elevation: 1,
+                            }}
+                            mode="outlined">
+                            <Text
+                              style={{color: typeColors[typeObj.type.name]}}>
+                              {typeObj.type.name}
+                            </Text>
+                          </Chip>
+                        </View>
+                      );
+                    })}
+                  </View>
+                )}
               </View>
               <Image
                 style={styles.img}

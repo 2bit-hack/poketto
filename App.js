@@ -24,7 +24,10 @@ const App = () => {
           <Stack.Screen
             name="Main"
             component={MainScreen}
-            options={{title: constants.appName, headerTitleAlign: 'center'}}
+            options={{
+              title: constants.appName,
+              headerTitleAlign: 'center',
+            }}
           />
           <Stack.Screen
             name="Detail"

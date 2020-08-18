@@ -1,3 +1,3 @@
 # pokétto
 
-pokétto is a Pokedex written in React Native, using pokeapi
+pokétto is a Pokedex written in React Native, using pokeAPI

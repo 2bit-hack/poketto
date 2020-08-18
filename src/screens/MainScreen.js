@@ -1,26 +1,26 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, View, FlatList, StyleSheet} from 'react-native';
+import {ActivityIndicator, View, FlatList} from 'react-native';
 
 import constants from '../constants';
+import {concatenate} from '../utilityFunctions';
+
 import PokeListItem from '../components/PokeListItem';
-import {TextInput, Avatar} from 'react-native-paper';
+import PokeGridItem from '../components/PokeGridItem';
 
-const capitalize = (name) =>
-  [...name.split('')[0].toUpperCase(), ...name.split('').slice(1)].join('');
-
-const concatenate = (name) =>
-  name
-    .split('-')
-    .map((n) => capitalize(n))
-    .join(' ');
+import {TextInput, Button} from 'react-native-paper';
 
 const MainScreen = ({navigation}) => {
   const [isLoading, setLoading] = useState(true);
+  const [viewType, setViewType] = useState('LIST');
   const [data, setData] = useState([]);
   const [query, setQuery] = useState('');
 
   const renderPokeListItem = ({item}) => {
     return <PokeListItem url={item.url} navigation={navigation} />;
+  };
+
+  const renderPokeGridItem = ({item}) => {
+    return <PokeGridItem url={item.url} navigation={navigation} />;
   };
 
   useEffect(() => {
@@ -33,41 +33,63 @@ const MainScreen = ({navigation}) => {
       .finally(() => setLoading(false));
   }, []);
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          onPress={() => setViewType(viewType === 'LIST' ? 'GRID' : 'LIST')}>
+          {viewType}
+        </Button>
+      ),
+    });
+  }, [navigation, viewType]);
+
   return (
-    <View style={styles.container}>
+    <View>
       {isLoading ? (
         <ActivityIndicator size="large" />
       ) : (
         <>
-          <TextInput
-            label="Search..."
-            mode="flat"
-            value={query}
-            disabled={isLoading}
-            onChangeText={(text) => setQuery(text)}
-          />
-          <FlatList
-            data={data.filter((pokemon) =>
-              concatenate(pokemon.name).includes(query),
-            )}
-            removeClippedSubviews={true}
-            renderItem={renderPokeListItem}
-            keyExtractor={(pokemon) => {
-              return pokemon.name;
-            }}
-          />
+          <View>
+            <TextInput
+              label="Search..."
+              mode="flat"
+              value={query}
+              disabled={isLoading}
+              onChangeText={(text) => setQuery(text)}
+            />
+          </View>
+          {viewType === 'LIST' ? (
+            <FlatList
+              data={data.filter((pokemon) =>
+                concatenate(pokemon.name).includes(query),
+              )}
+              removeClippedSubviews={true}
+              renderItem={renderPokeListItem}
+              key={'_'}
+              keyExtractor={(pokemon) => {
+                return '_' + pokemon.name;
+              }}
+              numColumns={1}
+            />
+          ) : (
+            <FlatList
+              data={data.filter((pokemon) =>
+                concatenate(pokemon.name).includes(query),
+              )}
+              removeClippedSubviews={true}
+              renderItem={renderPokeGridItem}
+              key={'#'}
+              keyExtractor={(pokemon) => {
+                return '#' + pokemon.name;
+              }}
+              numColumns={2}
+            />
+          )}
         </>
       )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default MainScreen;
