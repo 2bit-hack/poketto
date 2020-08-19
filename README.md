@@ -2,9 +2,11 @@
 
 pokétto is a Pokédex written in [React Native](https://reactnative.dev/), using [PokéAPI](https://pokeapi.co/docs/v2)
 
-<img src="https://github.com/2bit-hack/poketto/blob/master/img/list.png" width="120">
-<img src="https://github.com/2bit-hack/poketto/blob/master/img/grid.png" width="120">
-<img src="https://github.com/2bit-hack/poketto/blob/master/img/details.png" width="120">
+<p float="left">
+    <img src="https://github.com/2bit-hack/poketto/blob/master/img/list.png" width="150">
+    <img src="https://github.com/2bit-hack/poketto/blob/master/img/grid.png" width="150">
+    <img src="https://github.com/2bit-hack/poketto/blob/master/img/details.png" width="150">
+</p>
 
 ## Tech Stack
 
