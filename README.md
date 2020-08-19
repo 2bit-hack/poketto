@@ -2,6 +2,8 @@
 
 pokétto is a Pokédex written in [React Native](https://reactnative.dev/), using [PokéAPI](https://pokeapi.co/docs/v2)
 
+<img src="https://github.com/2bit-hack/poketto/blob/master/img/list.png" width="48">
+
 ## Tech Stack
 
 - React
